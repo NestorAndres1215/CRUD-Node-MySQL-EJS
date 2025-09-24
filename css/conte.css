@@ -1,121 +1,199 @@
-* {
-	box-sizing: border-box;
+:root {
+	--azul-marino: #0a2647;
+	--azul-marino-oscuro: #061d35;
+	--azul-acento: rgb(11, 107, 197);
+	--dorado: #d4af37;
+	--dorado-claro: #f8e9a1;
+	--blanco: #ffffff;
+	--gris-claro: #f8f9fa;
+	--text-color: #333;
 }
 
+/* Estilos generales */
 body {
-	background: #1D1D1F;
-	color: #fff;
-	font-family: 'Montserrat', sans-serif;
-	min-height: 100vh;
-	display: flex;
-	align-items: center;
+	font-family: 'Arial', sans-serif;
+	color: var(--text-color);
+	line-height: 1.6;
+	background-color: var(--blanco);
+	overflow-x: hidden;
 }
 
-.contenedor {
-	max-width: 1200px;
-	width: 90%;
-	margin: auto;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
 }
 
-/* --- --- CONTENEDOR PRINCIPAL --- --- */
-
-.contenido-principal {
-	margin-bottom: 50px;
-	display: flex;
-	align-items: center;
-}
-
-.contenido-principal__imagen {
-	vertical-align: top;
-	margin-right: 20px;
-	width: 50%;
-	max-width: 550px;
-}
-
-.contenido-principal__contenedor {
-	width: 50%;
-}
-
-.contenido-principal__titulo {
-	font-weight: normal;
-	font-size: 28px;
-}
-
-.contenido-principal__resumen {
-	font-family: 'Open Sans', sans-serif;
-	line-height: 30px;
-	color: #CFCFCF;
-}
-
-/* --- --- CAROUSEL --- --- */
-.carousel__contenedor {
+.section-title {
+	color: var(--azul-acento);
+	margin-bottom: 30px;
 	position: relative;
+	padding-bottom: 15px;
 }
 
-.carousel__anterior,
-.carousel__siguiente {
+.section-title:after {
+	content: '';
 	position: absolute;
-	display: block;
-	width: 30px;
-	height: 30px;
-	border: none;
-	top: calc(50% - 35px);
-	cursor: pointer;
-	line-height: 30px;
+	bottom: 0;
+	left: 0;
+	width: 60px;
+	height: 3px;
+	background-color: var(--dorado);
+}
+
+.section-title.text-center:after {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.text-primary-custom {
+	color: var(--azul-acento) !important;
+}
+
+/* Carrusel */
+.carousel {
+	border-bottom: 5px solid var(--dorado);
+}
+
+.banner_img {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+}
+
+/* Sección de bienvenida */
+.welcome-section {
+	padding: 40px 0;
 	text-align: center;
-	background: none;
-	color: #fff;
-	opacity: 20%;
 }
 
-.carousel__anterior:hover,
-.carousel__siguiente:hover {
-	opacity: 100%;
+.welcome-title {
+	color: var(--azul-acento);
+	font-size: 2.5rem;
+	margin-bottom: 30px;
+	position: relative;
+	padding-bottom: 15px;
+	display: inline-block;
 }
 
-.carousel__anterior {
-	left: -30px;
+.welcome-title:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 80px;
+	height: 3px;
+	background-color: var(--dorado);
 }
 
-.carousel__siguiente {
-	right: -30px;
+/* Secciones de contenido */
+.content-section {
+	padding: 40px 0;
 }
 
-.carousel__lista {
+.img-feature {
+	max-width: 100%;
+	border-radius: 10px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease;
+}
+
+.img-feature:hover {
+	transform: translateY(-10px);
+}
+
+/* Tarjetas de cursos */
+.fondo-tarjetas {
+	padding: 30px 0;
+}
+
+.text-tarjeta {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.tarjeta {
+	background-color: white;
+	border-radius: 10px;
 	overflow: hidden;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+	transition: all 0.3s ease;
+	height: 100%;
 }
 
-.carousel__elemento {
+.tarjeta:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	border-top: 3px solid var(--dorado);
+}
+
+.img-tarjeta {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.cont-tarjeta {
+	padding: 20px 15px;
 	text-align: center;
+	background-color: var(--azul-marino);
+	color: white;
 }
 
-.carousel__indicadores .glider-dot {
-	display: block;
-	width: 30px;
-	height: 4px;
-	background: #fff;
-	opacity: .2;
-	border-radius: 0;
+.cont-tarjeta h4 {
+	font-size: 1.1rem;
+	margin-bottom: 0;
+	line-height: 1.4;
 }
 
-.carousel__indicadores .glider-dot:hover {
-	opacity: .5;
+/* Sección de socios */
+.partners-section {
+	padding: 40px 0;
+	background-color: var(--gris-claro);
 }
 
-.carousel__indicadores .glider-dot.active {
+.partner-logo {
+	max-height: 120px;
+	transition: all 0.3s ease;
+	filter: grayscale(0%);
+}
+
+.partner-logo:hover {
+	transform: scale(1.05);
+}
+
+/* Sección de ubicación */
+.location-section {
+	padding: 40px 0;
+}
+
+.container-map {
+	position: relative;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	border: 3px solid var(--azul-acento);
+}
+
+.container-map iframe {
+	width: 100%;
+	height: 500px;
+	border: 0;
+}
+
+/* Animaciones */
+.animate-fade-up {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: all 0.6s ease;
+}
+
+.animate-fade-up.active {
 	opacity: 1;
+	transform: translateY(0);
 }
 
-@media screen and (max-width: 800px) {
-	body {
-		padding: 40px 0;
-	}
-
-	.contenido-principal {
-		flex-direction: column;
-	}
-
-	.contenido-principal > * {
-		width: 100%;
-	}
-}
+/* Para diferentes retrasos en animaciones */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }

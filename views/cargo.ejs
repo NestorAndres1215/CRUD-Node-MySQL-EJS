@@ -1,38 +1,118 @@
 <%- include('templates/cabecera.ejs')%>
-<div class="container">
+<!-- Bootstrap, Animate.css, Font Awesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+<style>
+    body {
+        background: #f4f8fb;
+    }
+    .table-custom {
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .table-custom thead {
+        background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+    }
+    .table-custom th, .table-custom td {
+        vertical-align: middle;
+        font-size: 1.08rem;
+    }
+    .table-custom tbody tr:hover {
+        background-color: #e3f2fd;
+        transition: background-color 0.3s;
+    }
+    .btn-custom {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(33,150,243,0.08);
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-custom.btn-primary {
+        background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+        border: none;
+        color: #fff;
+    }
+    .btn-custom.btn-success {
+        background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%);
+        border: none;
+        color: #fff;
+    }
+    .btn-custom.btn-danger {
+        background: linear-gradient(90deg, #e53935 0%, #ff7043 100%);
+        border: none;
+        color: #fff;
+    }
+    .btn-custom:hover {
+        transform: scale(1.07);
+        filter: brightness(1.1);
+    }
+    .btn i {
+        margin-right: 5px;
+    }
+    .fade-in {
+        animation: fadeIn 1s;
+    }
+    .title-animate {
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 8px rgba(33,150,243,0.15);
+        background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: bounceInDown 1.2s;
+    }
+</style>
+
+<div class="container fade-in animate__animated animate__fadeIn">
     <br>
-    <div class="text-primary">
-        <h2>Lista de Cargo</h2>
+    <div class="text-center">
+        <h2 class="title-animate animate__animated animate__bounceInDown">
+            <i class="fa-solid fa-list"></i> Lista de Cargo
+        </h2>
     </div>
-    <a href="/cargonew"class="btn btn-primary mt-4"> Nuevo Cargo</a>
-    <table class="table table-hover mt-4" >
-        <thead class=" bg-primary text-white text- text-center">
+    <div class="text-end">
+        <a href="/cargonew" class="btn btn-custom btn-primary mt-4 animate__animated animate__pulse animate__infinite">
+            <i class="fa-solid fa-plus"></i> Nuevo Cargo
+        </a>
+    </div>
+    <table class="table table-custom table-hover mt-4 shadow-sm rounded animate__animated animate__fadeInUp">
+        <thead class="text-white text-center">
             <tr>
-                <th>IdCargo</th>
-                <th>Cargo</th>
-                <th>Sueldo</th>
-                <th>Acciones</th>
+                <th><i class="fa-solid fa-id-badge"></i> IdCargo</th>
+                <th><i class="fa-solid fa-user-tie"></i> Cargo</th>
+                <th><i class="fa-solid fa-money-bill-wave"></i> Sueldo</th>
+                <th><i class="fa-solid fa-gears"></i> Acciones</th>
             </tr>
         </thead>
         <tbody class="text-center">
             <% results.forEach((user)=>{%>
-                <tr>
+                <tr class="animate__animated animate__fadeInUp">
                     <td>
                         <%= user.IdCargo %>
                     </td>
                     <td>
-                        <%=user.Cargo %>
+                        <%= user.Cargo %>
                     </td>
                     <td>
-                        <%=user.Sueldo %>
+                        <%= user.Sueldo %>
                     </td>
- 
                     <td>
-                        <a href="/cargoedit/<%= user.IdCargo %>"class="btn btn-success">Editar</a>
-                        <a href="/cargodelete/<%= user.IdCargo %>"class="btn btn-danger">Eliminar</a>
+                        <a href="/cargoedit/<%= user.IdCargo %>" class="btn btn-custom btn-success btn-sm animate__animated animate__bounceIn">
+                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                        </a>
+                        <a href="/cargodelete/<%= user.IdCargo %>" class="btn btn-custom btn-danger btn-sm animate__animated animate__bounceIn">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </a>
                     </td>
                 </tr>
-                <%})%>
+            <% }) %>
         </tbody>
     </table>
 </div>

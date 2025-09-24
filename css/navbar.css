@@ -1,0 +1,267 @@
+        /* Colores personalizados */
+        :root {
+            --azul-marino: #0a2647;
+            --azul-marino-oscuro: #061d35;
+            --dorado: #d4af37;
+            --dorado-claro: #f8e9a1;
+        }
+
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Estilos de la navbar */
+        .navbar {
+            background-color: var(--azul-marino);
+            padding: 15px 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 20px;
+            background-color: var(--azul-marino-oscuro);
+        }
+
+        .navbar-brand {
+            color: var(--dorado) !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:before {
+            content: '\f023';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            font-size: 1.6rem;
+            color: var(--dorado);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--dorado-claro) !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-brand:hover:before {
+            transform: rotate(-10deg);
+        }
+
+        .navbar-toggler {
+            border: none;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: none;
+            position: relative;
+            width: 30px;
+            height: 2px;
+            background-color: var(--dorado);
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--dorado);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-icon::before {
+            top: -8px;
+        }
+
+        .navbar-toggler-icon::after {
+            bottom: -8px;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+            background-color: transparent;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-item {
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-link:hover {
+            color: var(--dorado) !important;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--dorado);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-item.active .nav-link {
+            color: var(--dorado) !important;
+        }
+
+        .nav-item.active .nav-link::before {
+            width: 100%;
+        }
+
+        /* Estilos para dropdown */
+        .dropdown-menu {
+            background-color: var(--azul-marino);
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            color: white;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--dorado);
+            transform: translateX(5px);
+        }
+
+        /* Botón de contacto especial */
+        .btn-contact {
+            background-color: transparent;
+            border: 2px solid var(--dorado);
+            color: var(--dorado);
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .btn-contact:hover {
+            background-color: var(--dorado);
+            color: var(--azul-marino-oscuro);
+            transform: translateY(-2px);
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .nav-item {
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .nav-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .nav-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .nav-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .nav-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .navbar-collapse {
+                background-color: var(--azul-marino-oscuro);
+                padding: 20px;
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+
+            .nav-item {
+                margin: 5px 0;
+            }
+
+            .btn-contact {
+                margin: 10px 0;
+                display: inline-block;
+            }
+        }
