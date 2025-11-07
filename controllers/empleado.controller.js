@@ -1,79 +1,67 @@
-const conexion = require('../database/db');
+const empleadoService = require('../services/empleadoService');
 const MSG_ERROR_DB = require('../config/constants');
 
-exports.listarEmpleados = (req, res) => {
-    conexion.query('SELECT * FROM empleado', (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
+exports.listarEmpleados = async (req, res) => {
+    try {
+        const results = await empleadoService.getAll();
         res.render('empleado', { results });
-    });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
 };
 
 exports.viewCreate = (req, res) => res.render('empleadonew');
 
-exports.create = (req, res) => {
-    const { idemp, ape, nom, dir, tel, idcar } = req.body;
-    // Validaciones básicas
-    if (!idemp || !ape || !nom || !dir || !tel || !idcar) {
-        return res.status(400).send({ error: "Todos los campos son obligatorios" });
-    }
+exports.create = async (req, res) => {
+    try {
+        const { idemp, ape, nom, dir, tel, idcar } = req.body;
 
-    // Validación mínima de texto
-    if (ape.trim().length < 2 || nom.trim().length < 2) {
-        return res.status(400).send({ error: "Nombre y apellido deben tener al menos 2 caracteres" });
-    }
+        // Validaciones
+        if (!idemp || !ape || !nom || !dir || !tel || !idcar)
+            return res.status(400).send({ error: "Todos los campos son obligatorios" });
 
-    // ✅ Validación estricta de teléfono peruano (9 dígitos)
-    if (!/^\d{9}$/.test(tel)) {
-        return res.status(400).send({ error: "El teléfono debe contener exactamente 9 dígitos" });
-    }
+        if (ape.trim().length < 2 || nom.trim().length < 2)
+            return res.status(400).send({ error: "Nombre y apellido deben tener mínimo 2 letras" });
 
-    conexion.query('INSERT INTO empleado SET ?',
-        { IdEmpleado: idemp, Apellidos: ape, Nombres: nom, Direccion: dir, Telefono: tel, IdCargo: idcar },
-        (error) => {
-            if (error) {
-                console.error(error);
-                return res.send(MSG_ERROR_DB);
-            }
-            res.redirect('/empleado');
-        }
-    );
-};
+        if (!/^\d{9}$/.test(tel))
+            return res.status(400).send({ error: "El teléfono debe tener 9 dígitos" });
 
-exports.viewEdit = (req, res) => {
-    const { idemp } = req.params;
-    conexion.query('SELECT * FROM empleado WHERE IdEmpleado = ?', [idemp], (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
-        res.render('empleadoedit', { user: results[0] });
-    });
-};
-
-exports.update = (req, res) => {
-    const { idemp, ape, nom, dir, tel, idcar } = req.body;
-    conexion.query('UPDATE empleado SET ? WHERE IdEmpleado = ?',
-        [{ Apellidos: ape, Nombres: nom, Direccion: dir, Telefono: tel, IdCargo: idcar }, idemp],
-        (error) => {
-            if (error) {
-                console.error(error);
-                return res.send(MSG_ERROR_DB);
-            }
-            res.redirect('/empleado');
-        }
-    );
-};
-
-exports.delete = (req, res) => {
-    const { idemp } = req.params;
-    conexion.query('DELETE FROM empleado WHERE IdEmpleado = ?', [idemp], (error) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
+        await empleadoService.create({ idemp, ape, nom, dir, tel, idcar });
         res.redirect('/empleado');
-    });
+
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
+};
+
+exports.viewEdit = async (req, res) => {
+    try {
+        const user = await empleadoService.getById(req.params.idemp);
+        res.render('empleadoedit', { user });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
+};
+
+exports.update = async (req, res) => {
+    try {
+        await empleadoService.update(req.body);
+        res.redirect('/empleado');
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
+};
+
+exports.delete = async (req, res) => {
+    try {
+        await empleadoService.delete(req.params.idemp);
+        res.redirect('/empleado');
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
 };

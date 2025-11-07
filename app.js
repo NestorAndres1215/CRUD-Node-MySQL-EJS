@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { MSG_ERROR_VALIDATION, MSG_ERROR_NOT_FOUND, MSG_ERROR_DB } = require('./config/constants');
+const { MSG_ERROR_VALIDATION, MSG_ERROR_DB } = require('./config/constants');
 
 const cargoRoutes = require('./routes/cargo.routes');
 const empleadoRoutes = require('./routes/empleado.routes');
@@ -34,10 +34,6 @@ app.get('/', (req, res) => {
 app.use('/', cargoRoutes);
 app.use('/', empleadoRoutes);
 
-// 404 - rutas no encontradas
-app.use((req, res) => {
-    res.status(404).render('404', { url: req.originalUrl, msg: MSG_ERROR_NOT_FOUND });
-});
 
 // Error global
 app.use((err, req, res, next) => {

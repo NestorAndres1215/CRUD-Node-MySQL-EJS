@@ -1,97 +1,70 @@
-const conexion = require('../database/db');
+const cargoService = require('../services/cargoService');
 const MSG_ERROR_DB = require('../config/constants');
 
-// Listar Cargos
-exports.list = (req, res) => {
-    conexion.query('SELECT * FROM cargo', (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
+exports.list = async (req, res) => {
+    try {
+        const results = await cargoService.getAll();
         res.render('cargo', { results });
-    });
-};
-
-exports.listId = (req, res) => {
-    const { id } = req.params;
-    conexion.query('SELECT * FROM cargo WHERE IdCargo = ?', [id], (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
-        res.render('cargoedit', { user: results[0] });
-    });
-};
-
-
-// Mostrar formulario para registrar
-exports.viewCreate = (req, res) => {
-    res.render('cargonew');
-};
-
-// Guardar nuevo cargo
-exports.create = (req, res) => {
-    const { id, car, suel } = req.body;
-    if (!id || !car || !suel) {
-        return res.status(400).send({ error: 'Todos los campos son obligatorios' });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
     }
+};
 
-    if (isNaN(suel)) {
-        return res.status(400).send({ error: 'Sueldo debe ser un número' });
-    }
-    conexion.query('INSERT INTO cargo SET ?', {
-        IdCargo: id,
-        Cargo: car,
-        Sueldo: suel
-    }, (error) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
+exports.viewCreate = (req, res) => res.render('cargonew');
+
+exports.create = async (req, res) => {
+    try {
+        const { id, car, suel } = req.body;
+
+        if (!id || !car || !suel)
+            return res.status(400).send({ error: 'Todos los campos son obligatorios' });
+
+        if (!/^\d+(\.\d+)?$/.test(suel))
+            return res.status(400).send({ error: 'Sueldo debe ser un número válido' });
+
+        await cargoService.create({ id, car, suel });
         res.redirect('/cargo');
-    });
-};
-
-// Mostrar formulario editar
-exports.viewEdit = (req, res) => {
-    const { id } = req.params;
-    conexion.query('SELECT * FROM cargo WHERE IdCargo = ?', [id], (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
-        res.render('cargoedit', { user: results[0] });
-    });
-};
-
-// Actualizar cargo
-exports.update = (req, res) => {
-    const { id, car, suel } = req.body;
-
-    if (!id || !car || !suel) {
-        return res.status(400).send({ error: 'Todos los campos son obligatorios' });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
     }
-
-    if (isNaN(suel)) {
-        return res.status(400).send({ error: 'Sueldo debe ser un número' });
-    }
-    conexion.query('UPDATE cargo SET ? WHERE IdCargo = ?', [{ Cargo: car, Sueldo: suel }, id], (error) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
-        res.redirect('/cargo');
-    });
 };
 
-// Eliminar cargo
-exports.delete = (req, res) => {
-    const { id } = req.params;
-    conexion.query('DELETE FROM cargo WHERE IdCargo = ?', [id], (error) => {
-        if (error) {
-            console.error(error);
-            return res.send(MSG_ERROR_DB);
-        }
+exports.viewEdit = async (req, res) => {
+    try {
+        const user = await cargoService.getById(req.params.id);
+        res.render('cargoedit', { user });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
+};
+
+exports.update = async (req, res) => {
+    try {
+        const { id, car, suel } = req.body;
+
+        if (!id || !car || !suel)
+            return res.status(400).send({ error: 'Todos los campos son obligatorios' });
+
+        if (!/^\d+(\.\d+)?$/.test(suel))
+            return res.status(400).send({ error: 'Sueldo debe ser un número válido' });
+
+        await cargoService.update({ id, car, suel });
         res.redirect('/cargo');
-    });
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
+};
+
+exports.delete = async (req, res) => {
+    try {
+        await cargoService.delete(req.params.id);
+        res.redirect('/cargo');
+    } catch (error) {
+        console.error(error);
+        res.send(MSG_ERROR_DB);
+    }
 };
