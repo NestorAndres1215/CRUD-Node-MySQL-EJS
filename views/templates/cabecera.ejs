@@ -1,36 +1,65 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AAT SECURITY</title>
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+ 
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
 
-<link rel="stylesheet" href="/css/navbar.css">
-<!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
-  <div class="container">
-    <!-- Brand -->
-    <a class="navbar-brand fw-bold" href="/">AAT SECURITY</a>
+  <!-- BARRA DE NAVEGACIÓN -->
+  <nav class="bg-navy text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
 
-    <!-- Toggler -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar"
-      aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- LOGO / BRAND -->
+        <a href="/" class="text-2xl font-bold tracking-tight hover:text-blue-300 transition flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          AAT SECURITY
+        </a>
 
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/empleado">Empleado</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/cargo">Cargo</a>
-        </li>
-      </ul>
+        <!-- BOTÓN MENÚ MÓVIL -->
+        <button id="mobile-menu-button" 
+                class="md:hidden text-white hover:text-blue-300 focus:outline-none transition p-2 rounded-md">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <!-- MENÚ ESCRITORIO -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="/" class="hover:text-blue-300 transition font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-home"></i> Inicio
+          </a>
+          <a href="/empleado" class="hover:text-blue-300 transition font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-users"></i> Empleado
+          </a>
+          <a href="/cargo" class="hover:text-blue-300 transition font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-briefcase"></i> Cargo
+          </a>
+        </div>
+
+      </div>
     </div>
-  </div>
-</nav>
-
-<!-- Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <div id="mobile-menu" class="md:hidden hidden bg-navy border-t border-blue-800">
+      <div class="px-4 py-3 space-y-1">
+        <a href="/" class="block px-4 py-3 hover:bg-blue-900 rounded-lg transition font-medium flex items-center gap-2">
+          <i class="fa-solid fa-home"></i> Inicio
+        </a>
+        <a href="/empleado" class="block px-4 py-3 hover:bg-blue-900 rounded-lg transition font-medium flex items-center gap-2">
+          <i class="fa-solid fa-users"></i> Empleado
+        </a>
+        <a href="/cargo" class="block px-4 py-3 hover:bg-blue-900 rounded-lg transition font-medium flex items-center gap-2">
+          <i class="fa-solid fa-briefcase"></i> Cargo
+        </a>
+      </div>
+    </div>
+  </nav>
 <script src="/js/cabecera.js"></script>

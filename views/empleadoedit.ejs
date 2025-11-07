@@ -1,36 +1,119 @@
-<%- include("templates/cabecera")%>
-<div class="container mt-4">
-    <div class="card border-danger">
-        <div class="card-header bg-primary text-white"><h3>Modificar Registro Empleado</h3></div>
-            <div class="card-body">
-                <form action="/updateempleado" method="post">
-                    <div class="mb-3">
-                        <label for="codigo" class="from-label">IdEmpleado:</label>
-                        <input type="text" class="form-control" value="<%=user.IdEmpleado%>"id="id" name="idemp" tabindex="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombre" class="from-label">Apellidos:</label>
-                        <input type="text" class="form-control" value="<%=user.Apellidos%>"id="car" name="ape" tabindex="2">
-                    </div>
-                    <div class="mb-3">
-                        <label for="creditos" class="from-label">Nombres:</label>
-                        <input type="text" class="form-control" value="<%=user.Nombres%>"id="suel" name="nom" tabindex="3">
-                    </div>
-                    <div class="mb-3">
-                        <label for="creditos" class="from-label">Direccion:</label>
-                        <input type="text" class="form-control" value="<%=user.Direccion%>"id="suel" name="dir" tabindex="3">
-                    </div>
-                    <div class="mb-3">
-                        <label for="creditos" class="from-label">Telefono:</label>
-                        <input type="text" class="form-control" value="<%=user.Telefono%>"id="suel" name="tel" tabindex="3">
-                    </div>
-                    <div class="mb-3">
-                        <label for="codigo" class="from-label">IdCargo:</label>
-                        <input type="text" class="form-control" value="<%=user.IdCargo%>"id="id" name="idcar" tabindex="1">
-                    </div>
-                    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
-                    <a href="/empleado" class="btn btn-warning">Cancelar</a>
-                </form>
-            </div>
+<%- include("templates/cabecera") %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- TARJETA PRINCIPAL -->
+    <div class="bg-white rounded-3xl shadow-xl border-2 border-navy overflow-hidden">
+
+      <!-- HEADER AZUL MARINO -->
+      <div class="bg-navy text-white p-6 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold flex items-center justify-center gap-3">
+          <i class="fa-solid fa-user-pen"></i>
+          Modificar Registro Empleado
+        </h3>
+      </div>
+
+      <!-- FORMULARIO -->
+      <div class="p-6 md:p-10">
+        <form action="/updateempleado" method="post" class="space-y-5">
+
+          <!-- ID Empleado -->
+          <div>
+            <label for="idemp" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-id-badge text-navy"></i> IdEmpleado
+            </label>
+            <input type="text" 
+                   id="idemp" 
+                   name="idemp" 
+                   value="<%= user.IdEmpleado %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="1" readonly>
+          </div>
+
+          <!-- Apellidos -->
+          <div>
+            <label for="ape" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-user-tag text-navy"></i> Apellidos
+            </label>
+            <input type="text" 
+                   id="ape" 
+                   name="ape" 
+                   value="<%= user.Apellidos %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="2" required>
+          </div>
+
+          <!-- Nombres -->
+          <div>
+            <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-user-check text-navy"></i> Nombres
+            </label>
+            <input type="text" 
+                   id="nom" 
+                   name="nom" 
+                   value="<%= user.Nombres %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="3" required>
+          </div>
+
+          <!-- Dirección -->
+          <div>
+            <label for="dir" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-location-dot text-navy"></i> Dirección
+            </label>
+            <input type="text" 
+                   id="dir" 
+                   name="dir" 
+                   value="<%= user.Direccion %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="4" required>
+          </div>
+
+          <!-- Teléfono -->
+          <div>
+            <label for="tel" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-phone-volume text-navy"></i> Teléfono
+            </label>
+            <input type="text" 
+                   id="tel" 
+                   name="tel" 
+                   value="<%= user.Telefono %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="5" required>
+          </div>
+
+          <!-- IdCargo -->
+          <div>
+            <label for="idcar" class="block text-sm font-medium text-gray-700 mb-1">
+              <i class="fa-solid fa-briefcase text-navy"></i> IdCargo
+            </label>
+            <input type="text" 
+                   id="idcar" 
+                   name="idcar" 
+                   value="<%= user.IdCargo %>" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-navy focus:border-navy transition"
+                   tabindex="6" required>
+          </div>
+
+          <!-- BOTONES -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-4">
+            <button type="submit" 
+                    class="flex-1 inline-flex items-center justify-center gap-2 bg-navy hover:bg-blue-950 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition transform hover:scale-105"
+                    tabindex="7">
+              <i class="fa-solid fa-save"></i> Guardar
+            </button>
+            <a href="/empleado" 
+               class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition text-center"
+               tabindex="8">
+              <i class="fa-solid fa-ban"></i> Cancelar
+            </a>
+          </div>
+
+        </form>
+      </div>
     </div>
+
+  </div>
 </div>
